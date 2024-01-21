@@ -1,0 +1,198 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin User List</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'images/fav.gif' %}">
+  <style>
+    body, ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #333;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    nav ul li {
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 5px 10px;
+    }
+
+    nav ul li a:hover {
+      background-color: #555;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td.actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    td.actions a {
+      padding: 3px 5px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    td.actions a.edit {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    td.actions a.delete {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    td.actions a:hover {
+      opacity: 0.8;
+    }
+
+    .heading {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .search-bar input[type="text"] {
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+
+    .search-bar button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+
+    .search-bar button:hover {
+      opacity: 0.8;
+    }
+
+    .search-bar .cancel-button {
+      display: none;
+      padding: 5px 10px;
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+
+    .search-bar .cancel-button:hover {
+      opacity: 0.8;
+    }
+
+    .search-bar.active .cancel-button {
+      display: inline-block;
+    }
+
+    .add-user-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .add-user-button a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .add-user-button a:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'admin_home' %}">Home</a></li>
+      <li><a href="{% url 'user_list' %}">User List</a></li>
+      <li><a href="{% url 'admin_logout' %}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <h2 class="heading">User List</h2>
+
+  <div class="search-bar">
+    <form method="GET" action="{% url 'user_list' %}">
+      <button type="submit">Go back</button>
+
+        <button type="submit" name="cancel" class="cancel-button">Cancel</button>
+
+    </form>
+  </div>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if results %}
+  {% for i in results %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{i.username}}</td>
+        <td>{{i.email}}</td>
+      </tr>
+
+    {% endfor %}
+    {% else %}
+    <center><h3>No results found.....</h3></center>
+
+    {% endif %}
+
+    </tbody>
+  </table>
+
+</body>
+</html>

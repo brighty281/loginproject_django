@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Home Page</title>
+  <style>
+
+    body, ul {
+      margin: 0;
+      padding: 0;
+
+    }
+
+    nav {
+      background-color: #333;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    nav ul li {
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 5px 10px;
+    }
+
+    nav ul li a:hover {
+      background-color: #555;
+    }
+
+    .container {
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 400px;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .container h2 {
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 24px;
+    }
+
+    .container p.message {
+        margin-top: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .container p.success {
+        background-color: #dff0d8;
+        color: #3c763d;
+    }
+
+    .container p.error {
+        background-color: #f2dede;
+        color: #a94442;
+    }
+
+
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'admin_home' %}">Home</a></li>
+      <li><a href="{% url 'user_list' %}">User List</a></li>
+      <li><a href="{% url 'admin_logout' %}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+        <p class="message {% if message.tags %}{{ message.tags }}{% endif %}"></p>
+
+      <h2>Welcome </h2>
+
+      <h2>{{username}}</h2>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Edit User</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/fav.gif' %}">
+  <style>
+    body, ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #333;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    nav ul li {
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 5px 10px;
+    }
+
+    nav ul li a:hover {
+      background-color: #555;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+    }
+
+    .container h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container input[type="text"],
+    .container input[type="email"]{
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .container button {
+      background-color: #007bff;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .container button:hover {
+      background-color: #1a49b6;
+    }
+
+    .container .message {
+      text-align: center;
+      margin-top: 10px;
+      color: #888;
+    }
+
+    .container .message a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'admin_home' %}">Home</a></li>
+      <li><a href="{% url 'user_list' %}">User List</a></li>
+      <li><a href="{% url 'admin_logout' %}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <div class="container" style="margin: 0 auto;">
+    <h2 class="heading">Edit User</h2>
+
+    <form action="{% url 'edit_user' user.id %}" method="POST">
+        {% csrf_token %}
+                        {% if messages %}
+                        {% for msg in messages %}
+                        <p class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{msg}}</p>
+                        {% endfor %}
+                        {% endif %}
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ user.username }}" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ user.email }}" required>
+        <button type="submit">Edit User</button>
+      </div>
+    </form>
+
+  </div>
+</body>
+</html>
